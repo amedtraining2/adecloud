@@ -22,11 +22,11 @@ jobs:
       uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
       with:
         arguments: build
-        
-    - uses: shallwefootball/s3-upload-action@master
+
+    - uses: jakejarvis/s3-sync-action@master
       name: Upload S3
-      with:
-        aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-        aws_bucket: 'adecloud'
-        source_dir: 'build/libs/adecloud-0.0.1-SNAPSHOT.jar'
+      env:
+        AWS_S3_BUCKET: 'adecloud'
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+        SOURCE_DIR: 'build/libs/adecloud-0.0.1-SNAPSHOT.jar'
